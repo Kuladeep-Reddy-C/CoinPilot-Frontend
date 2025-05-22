@@ -109,18 +109,21 @@ const RecentEarnings = ({ refreshFlag }) => {
           {newData.map((earning) => {
             const { initial, bgColor, textColor } = getCategoryStyle(earning.category);
             return (
-              <div
-                key={earning._id}
-                className={`flex justify-between items-center p-2 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} hover:bg-[#3A4A4B] transition-colors duration-200`}
-              >
-                <div className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${bgColor} ${textColor}`}>
-                    {initial}
+              <>
+                <div
+                  key={earning._id}
+                  className={`flex justify-between items-center p-2 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} hover:bg-[#3A4A4B] transition-colors duration-200`}
+                >
+                  <div className="flex items-center">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${bgColor} ${textColor}`}>
+                      {initial}
+                    </div>
+                    <span className="ml-3">{earning.category}</span>
                   </div>
-                  <span className="ml-3">{earning.category}</span>
+                  <div className="text-[#38A169] font-semibold">{formatAmount(earning.amount)}</div>
                 </div>
-                <div className="text-[#38A169] font-semibold">{formatAmount(earning.amount)}</div>
-              </div>
+              </>
+              
             );
           })}
         </div>

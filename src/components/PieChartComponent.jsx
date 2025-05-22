@@ -120,6 +120,72 @@ const PieChartsComponent = () => {
         '#8B0707', '#329262', '#5574A6', '#3B3EAC'
     ];
 
+    // Responsive chart options - adapts based on screen size
+    const getChartOptions = (isMobile = false) => ({
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: isMobile ? 'bottom' : 'right',
+                labels: {
+                    color: isDarkMode ? '#E2E8F0' : '#2D3748',
+                    font: { 
+                        size: isMobile ? 10 : 12,
+                        family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial',
+                        weight: 500
+                    },
+                    padding: isMobile ? 8 : 16,
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    boxWidth: isMobile ? 12 : 15,
+                    boxHeight: isMobile ? 12 : 15
+                },
+                title: {
+                    display: !isMobile,
+                    text: 'Categories',
+                    color: isDarkMode ? '#E2E8F0' : '#1A202C',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            },
+            tooltip: {
+                backgroundColor: isDarkMode ? 'rgba(45, 55, 72, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                titleColor: isDarkMode ? '#E2E8F0' : '#1A202C',
+                bodyColor: isDarkMode ? '#E2E8F0' : '#2D3748',
+                bodyFont: {
+                    size: isMobile ? 12 : 14
+                },
+                titleFont: {
+                    size: isMobile ? 14 : 16,
+                    weight: 'bold'
+                },
+                padding: isMobile ? 8 : 12,
+                cornerRadius: 8,
+                displayColors: true,
+                boxPadding: 6,
+                callbacks: {
+                    label: function(context) {
+                        const value = context.raw;
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = Math.round((value / total) * 100);
+                        return `${context.label}: $${value} (${percentage}%)`;
+                    }
+                }
+            },
+            datalabels: {
+                display: false
+            }
+        },
+        cutout: isMobile ? '30%' : '40%',
+        animation: {
+            animateScale: true,
+            animateRotate: true,
+            duration: 1000,
+            easing: 'easeOutQuart'
+        }
+    });
+
     // Pie chart data with improved alpha for better visual contrast
     const expenseCategoryData = {
         labels: expenseCategories.filter((_, i) => expenseByCategory[i] > 0),
@@ -160,99 +226,35 @@ const PieChartsComponent = () => {
         }],
     };
 
-    // Enhanced chart options
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'right',
-                labels: {
-                    color: isDarkMode ? '#E2E8F0' : '#2D3748',
-                    font: { 
-                        size: 12,
-                        family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial',
-                        weight: 500
-                    },
-                    padding: 16,
-                    usePointStyle: true,
-                    pointStyle: 'circle'
-                },
-                title: {
-                    display: true,
-                    text: 'Categories',
-                    color: isDarkMode ? '#E2E8F0' : '#1A202C',
-                    font: {
-                        weight: 'bold'
-                    }
-                }
-            },
-            tooltip: {
-                backgroundColor: isDarkMode ? 'rgba(45, 55, 72, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-                titleColor: isDarkMode ? '#E2E8F0' : '#1A202C',
-                bodyColor: isDarkMode ? '#E2E8F0' : '#2D3748',
-                bodyFont: {
-                    size: 14
-                },
-                titleFont: {
-                    size: 16,
-                    weight: 'bold'
-                },
-                padding: 12,
-                cornerRadius: 8,
-                displayColors: true,
-                boxPadding: 6,
-                callbacks: {
-                    label: function(context) {
-                        const value = context.raw;
-                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                        const percentage = Math.round((value / total) * 100);
-                        return `${context.label}: $${value} (${percentage}%)`;
-                    }
-                }
-            },
-            datalabels: {
-                display: false
-            }
-        },
-        cutout: '40%',
-        animation: {
-            animateScale: true,
-            animateRotate: true,
-            duration: 1000,
-            easing: 'easeOutQuart'
-        }
-    };
-
     return (
-        <div className={`p-6 rounded-xl shadow-lg ${isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'}`}>
-            <h2 className="text-2xl font-bold mb-8 text-center">Financial Overview</h2>
+        <div className={`p-3 sm:p-4 md:p-6 rounded-xl shadow-lg ${isDarkMode ? 'bg-gray-800 text-gray-100' : 'bg-white text-gray-900'}`}>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 md:mb-8 text-center">Financial Overview</h2>
             
             {loading ? (
-                <div className="flex justify-center items-center h-64">
-                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-teal-500"></div>
+                <div className="flex justify-center items-center h-32 sm:h-48 md:h-64">
+                    <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-t-4 border-b-4 border-teal-500"></div>
                 </div>
             ) : error ? (
-                <div className="text-red-500 text-center p-4 rounded bg-red-100">{error}</div>
+                <div className="text-red-500 text-center p-4 rounded bg-red-100 mx-2 sm:mx-0">{error}</div>
             ) : (
                 <>
-                    {/* Summary Section */}
-                    <div className="m-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className={`p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
-                            <h4 className="text-lg font-medium">Total Expenses</h4>
-                            <p className="text-2xl font-bold text-red-500">
+                    {/* Summary Section - Responsive Grid */}
+                    <div className="mb-6 sm:mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                        <div className={`p-3 sm:p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
+                            <h4 className="text-sm sm:text-lg font-medium">Total Expenses</h4>
+                            <p className="text-lg sm:text-2xl font-bold text-red-500 break-all">
                                 ${expenses.reduce((sum, exp) => sum + exp.amount, 0).toLocaleString()}
                             </p>
                         </div>
-                        <div className={`p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
-                            <h4 className="text-lg font-medium">Total Earnings</h4>
-                            <p className="text-2xl font-bold text-green-500">
+                        <div className={`p-3 sm:p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
+                            <h4 className="text-sm sm:text-lg font-medium">Total Earnings</h4>
+                            <p className="text-lg sm:text-2xl font-bold text-green-500 break-all">
                                 ${earnings.reduce((sum, earn) => sum + earn.amount, 0).toLocaleString()}
                             </p>
                         </div>
-                        <div className={`p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
-                            <h4 className="text-lg font-medium">Net Balance</h4>
-                            <p className={`text-2xl font-bold ${
+                        <div className={`p-3 sm:p-4 rounded-md text-center sm:col-span-2 lg:col-span-1 ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
+                            <h4 className="text-sm sm:text-lg font-medium">Net Balance</h4>
+                            <p className={`text-lg sm:text-2xl font-bold break-all ${
                                 earnings.reduce((sum, earn) => sum + earn.amount, 0) - 
                                 expenses.reduce((sum, exp) => sum + exp.amount, 0) >= 0 
                                     ? 'text-green-500' : 'text-red-500'
@@ -266,15 +268,16 @@ const PieChartsComponent = () => {
                     </div>
 
                     {/* Expenses Section */}
-                    <div className="mb-12 border rounded-lg p-6 shadow-sm bg-opacity-50 bg-gray-50 dark:bg-gray-700 dark:bg-opacity-30">
-                        <h3 className="text-xl font-semibold mb-6 text-center">
+                    <div className="mb-8 sm:mb-12 border rounded-lg p-3 sm:p-4 md:p-6 shadow-sm bg-opacity-50 bg-gray-50 dark:bg-gray-700 dark:bg-opacity-30">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-center">
                             Expense Distribution
                         </h3>
                         
-                        <div className="flex justify-center mb-6">
+                        {/* Toggle Buttons - Responsive */}
+                        <div className="flex flex-col sm:flex-row justify-center mb-4 sm:mb-6 gap-2 sm:gap-0">
                             <button
                                 onClick={() => setExpenseView('category')}
-                                className={`px-4 py-2 mr-2 rounded-md transition-all duration-300 ${
+                                className={`px-3 py-2 sm:px-4 sm:py-2 sm:mr-2 rounded-md transition-all duration-300 text-sm sm:text-base ${
                                 expenseView === 'category'
                                     ? 'bg-teal-500 text-white shadow-md transform scale-105'
                                     : isDarkMode
@@ -286,7 +289,7 @@ const PieChartsComponent = () => {
                             </button>
                             <button
                                 onClick={() => setExpenseView('payment')}
-                                className={`px-4 py-2 rounded-md transition-all duration-300 ${
+                                className={`px-3 py-2 sm:px-4 sm:py-2 rounded-md transition-all duration-300 text-sm sm:text-base ${
                                 expenseView === 'payment'
                                     ? 'bg-teal-500 text-white shadow-md transform scale-105'
                                     : isDarkMode
@@ -298,28 +301,32 @@ const PieChartsComponent = () => {
                             </button>
                         </div>
 
-                        <div className="flex flex-col md:flex-row justify-center items-center">
-                            <div className="w-full md:w-2/3 h-80">
+                        {/* Chart and Summary - Responsive Layout */}
+                        <div className="flex flex-col lg:flex-row justify-center items-start gap-4">
+                            {/* Chart Container - Responsive Height */}
+                            <div className="w-full lg:w-2/3 h-64 sm:h-80 md:h-96">
                                 <Pie
                                     data={expenseView === 'category' ? expenseCategoryData : expensePaymentData}
-                                    options={options}
+                                    options={getChartOptions(window.innerWidth < 640)}
                                 />
                             </div>
-                            <div className="w-full md:w-1/3 mt-4 md:mt-0">
-                                <h4 className="font-medium text-center mb-2">
+                            
+                            {/* Summary Panel - Better Mobile Layout */}
+                            <div className="w-full lg:w-1/3 mt-4 lg:mt-0">
+                                <h4 className="font-medium text-center mb-2 text-sm sm:text-base">
                                     {expenseView === 'category' ? 'Top Categories' : 'Top Payment Methods'}
                                 </h4>
-                                <div className={`p-3 rounded-md ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                                <div className={`p-2 sm:p-3 rounded-md ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} max-h-64 overflow-y-auto`}>
                                     {expenseView === 'category' ? 
                                         expenseCategories
                                             .map((cat, i) => ({ name: cat, amount: expenseByCategory[i] }))
                                             .filter(item => item.amount > 0)
                                             .sort((a, b) => b.amount - a.amount)
-                                            .slice(0, 5)
+                                            .slice(0, 8)
                                             .map((item, i) => (
-                                                <div key={i} className="flex justify-between items-center mb-1">
-                                                    <span className="text-sm">{item.name}</span>
-                                                    <span className="font-semibold">${item.amount}</span>
+                                                <div key={i} className="flex justify-between items-center mb-1 py-1">
+                                                    <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
+                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
                                                 </div>
                                             ))
                                         :
@@ -327,11 +334,11 @@ const PieChartsComponent = () => {
                                             .map((method, i) => ({ name: method, amount: expenseByPaymentMethod[i] }))
                                             .filter(item => item.amount > 0)
                                             .sort((a, b) => b.amount - a.amount)
-                                            .slice(0, 5)
+                                            .slice(0, 8)
                                             .map((item, i) => (
-                                                <div key={i} className="flex justify-between items-center mb-1">
-                                                    <span className="text-sm">{item.name}</span>
-                                                    <span className="font-semibold">${item.amount}</span>
+                                                <div key={i} className="flex justify-between items-center mb-1 py-1">
+                                                    <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
+                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
                                                 </div>
                                             ))
                                     }
@@ -341,25 +348,28 @@ const PieChartsComponent = () => {
                     </div>
 
                     {/* Earnings Section */}
-                    <div className="mb-12 border rounded-lg p-6 shadow-sm bg-opacity-50 bg-gray-50 dark:bg-gray-700 dark:bg-opacity-30">
-                        <h3 className="text-xl font-semibold mb-6 text-center">Earnings by Category</h3>
+                    <div className="mb-8 sm:mb-12 border rounded-lg p-3 sm:p-4 md:p-6 shadow-sm bg-opacity-50 bg-gray-50 dark:bg-gray-700 dark:bg-opacity-30">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-center">Earnings by Category</h3>
                         
-                        <div className="flex flex-col md:flex-row justify-center items-center">
-                            <div className="w-full md:w-2/3 h-80">
-                                <Pie data={earningCategoryData} options={options} />
+                        <div className="flex flex-col lg:flex-row justify-center items-start gap-4">
+                            {/* Chart Container - Responsive Height */}
+                            <div className="w-full lg:w-2/3 h-64 sm:h-80 md:h-96">
+                                <Pie data={earningCategoryData} options={getChartOptions(window.innerWidth < 640)} />
                             </div>
-                            <div className="w-full md:w-1/3 mt-4 md:mt-0">
-                                <h4 className="font-medium text-center mb-2">Top Income Sources</h4>
-                                <div className={`p-3 rounded-md ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                            
+                            {/* Summary Panel - Better Mobile Layout */}
+                            <div className="w-full lg:w-1/3 mt-4 lg:mt-0">
+                                <h4 className="font-medium text-center mb-2 text-sm sm:text-base">Top Income Sources</h4>
+                                <div className={`p-2 sm:p-3 rounded-md ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} max-h-64 overflow-y-auto`}>
                                     {earningCategories
                                         .map((cat, i) => ({ name: cat, amount: earningByCategory[i] }))
                                         .filter(item => item.amount > 0)
                                         .sort((a, b) => b.amount - a.amount)
-                                        .slice(0, 5)
+                                        .slice(0, 8)
                                         .map((item, i) => (
-                                            <div key={i} className="flex justify-between items-center mb-1">
-                                                <span className="text-sm">{item.name}</span>
-                                                <span className="font-semibold">${item.amount}</span>
+                                            <div key={i} className="flex justify-between items-center mb-1 py-1">
+                                                <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
+                                                <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
                                             </div>
                                         ))
                                     }
@@ -367,8 +377,6 @@ const PieChartsComponent = () => {
                             </div>
                         </div>
                     </div>
-
-
                 </>
             )}
         </div>

@@ -212,19 +212,31 @@ const ChartsComponentBar = ({refreshFlag}) => {
   const numWeeks = Math.ceil(daysInMonth / 7);
 
   return (
-    <div className="p-6">
+    <div className="p-3 sm:p-4 md:p-6 w-full">
       {isLoading ? (
-        <Loader isDarkMode={isDarkMode} />
+        <div className="flex justify-center items-center py-12">
+          <Loader isDarkMode={isDarkMode} />
+        </div>
       ) : error ? (
-        <div className="text-center text-[#E53E3E] py-10">{error}</div>
+        <div className={`text-center py-8 rounded-lg ${isDarkMode ? 'bg-red-900/20 text-red-400' : 'bg-red-50 text-red-600'}`}>
+          <div className="text-sm sm:text-base">{error}</div>
+        </div>
       ) : (
-        <div className={`mt-6 p-4 rounded-lg border ${cardClasses}`}>
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
-            <h2 className="text-lg font-medium mb-4 sm:mb-0">Financial Report</h2>
-            <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0">
-              <div>
-                <label htmlFor="month-select" className="block text-sm font-medium mb-1 text-[#A3BFFA]">
-                  Select Month
+        <div className={`p-3 sm:p-4 md:p-6 rounded-lg border ${cardClasses} w-full`}>
+          {/* Header Section */}
+          <div className="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-between sm:items-start mb-6">
+            <div>
+              <h2 className="text-lg sm:text-xl md:text-2xl font-medium mb-2">Financial Report</h2>
+              <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                Track your earnings and expenses over time
+              </p>
+            </div>
+            
+            {/* Controls - Responsive Layout */}
+            <div className="flex flex-col xs:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+              <div className="flex-1 sm:flex-none">
+                <label htmlFor="month-select" className={`block text-xs sm:text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Month
                 </label>
                 <select
                   id="month-select"
@@ -233,7 +245,7 @@ const ChartsComponentBar = ({refreshFlag}) => {
                     setSelectedMonth(Number(e.target.value));
                     setSelectedWeek(1);
                   }}
-                  className={`p-2 rounded-lg border ${inputClasses} focus:outline-none focus:ring-2 transition-all duration-200`}
+                  className={`w-full p-2 text-sm rounded-lg border ${inputClasses} focus:outline-none focus:ring-2 transition-all duration-200`}
                 >
                   {monthOptions.map((month) => (
                     <option key={month.value} value={month.value}>
@@ -242,9 +254,9 @@ const ChartsComponentBar = ({refreshFlag}) => {
                   ))}
                 </select>
               </div>
-              <div>
-                <label htmlFor="year-select" className="block text-sm font-medium mb-1 text-[#A3BFFA]">
-                  Select Year
+              <div className="flex-1 sm:flex-none">
+                <label htmlFor="year-select" className={`block text-xs sm:text-sm font-medium mb-1 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Year
                 </label>
                 <select
                   id="year-select"
@@ -253,7 +265,7 @@ const ChartsComponentBar = ({refreshFlag}) => {
                     setSelectedYear(Number(e.target.value));
                     setSelectedWeek(1);
                   }}
-                  className={`p-2 rounded-lg border ${inputClasses} focus:outline-none focus:ring-2 transition-all duration-200`}
+                  className={`w-full p-2 text-sm rounded-lg border ${inputClasses} focus:outline-none focus:ring-2 transition-all duration-200`}
                 >
                   {yearOptions.map((year) => (
                     <option key={year} value={year}>
@@ -264,115 +276,169 @@ const ChartsComponentBar = ({refreshFlag}) => {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          {/* Charts Grid - Responsive */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Weekly Report */}
-            <div>
-              <h3 className={`text-sm font-medium mb-2 ${isDarkMode ? 'text-[#A3BFFA]' : 'text-gray-600'}`}>
-                Weekly Earnings vs Expenses ({monthOptions[selectedMonth - 1].label} {selectedYear})
-              </h3>
-              <div className={`h-48 p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} relative`}>
-                <div className="flex justify-center space-x-4 mb-2">
+            <div className="order-1">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3">
+                <h3 className={`text-sm sm:text-base font-medium mb-2 sm:mb-0 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  Weekly Overview
+                </h3>
+                <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  {monthOptions[selectedMonth - 1].label} {selectedYear}
+                </div>
+              </div>
+              
+              <div className={`rounded-lg border ${isDarkMode ? 'bg-gray-700/50 border-gray-600' : 'bg-gray-50 border-gray-200'} p-3 sm:p-4`}>
+                {/* Legend */}
+                <div className="flex justify-center gap-4 sm:gap-6 mb-4">
                   <div className="flex items-center">
-                    <div className="w-4 h-4 bg-[#3182CE] mr-1"></div>
-                    <span className="text-xs">Earnings</span>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded mr-2"></div>
+                    <span className="text-xs sm:text-sm">Earnings</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-4 h-4 bg-purple-500 mr-1"></div>
-                    <span className="text-xs">Expenses</span>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-purple-500 rounded mr-2"></div>
+                    <span className="text-xs sm:text-sm">Expenses</span>
                   </div>
                 </div>
-                {weeklyEarnings.every(amount => amount === 0) && weeklyExpenses.every(amount => amount === 0) ? (
-                  <div className="text-center text-[#A3BFFA] py-10">
-                    No data for {monthOptions[selectedMonth - 1].label} {selectedYear}
-                  </div>
-                ) : (
-                  <div className="flex h-32 items-end justify-around space-x-2">
-                    {weekLabels.slice(0, numWeeks).map((week, index) => (
-                      <div
-                        key={week}
-                        className="flex flex-row items-end justify-center gap-1 flex-1 cursor-pointer relative group"
-                        onClick={() => setSelectedWeek(index + 1)}
-                      >
-                        <div
-                          className={`w-4 ${selectedWeek === index + 1 ? 'bg-[#60A5FA]' : 'bg-[#3182CE]'} rounded-t`}
-                          style={{ 
-                            height: weeklyEarnings[index] > 0 ? `${(weeklyEarnings[index] / maxWeeklyAmount) * 100}px` : '0px'
-                          }}
-                        ></div>
-                        <div
-                          className={`w-4 ${selectedWeek === index + 1 ? 'bg-purple-600' : 'bg-purple-500'} rounded-t`}
-                          style={{ 
-                            height: weeklyExpenses[index] > 0 ? `${(weeklyExpenses[index] / maxWeeklyAmount) * 100}px` : '0px'
-                          }}
-                        ></div>
-                        <div className="absolute bottom-0 text-center w-full mt-2">
-                          <span className="text-xs">{week}</span>
-                        </div>
-                        <div className="absolute opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded p-1 -top-8 z-10">
-                          Earnings: €{weeklyEarnings[index].toFixed(2)}<br />
-                          Expenses: €{weeklyExpenses[index].toFixed(2)}
-                        </div>
+
+                {/* Chart Container */}
+                <div className="h-40 sm:h-48 relative">
+                  {weeklyEarnings.every(amount => amount === 0) && weeklyExpenses.every(amount => amount === 0) ? (
+                    <div className={`flex flex-col items-center justify-center h-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <div className="text-2xl sm:text-3xl mb-2">📊</div>
+                      <div className="text-xs sm:text-sm text-center">
+                        No data for {monthOptions[selectedMonth - 1].label} {selectedYear}
                       </div>
-                    ))}
-                  </div>
-                )}
+                    </div>
+                  ) : (
+                    <div className="flex h-full items-end justify-around px-2">
+                      {weekLabels.slice(0, numWeeks).map((week, index) => (
+                        <div
+                          key={week}
+                          className="flex flex-col items-center flex-1 max-w-16 cursor-pointer group"
+                          onClick={() => setSelectedWeek(index + 1)}
+                        >
+                          {/* Bars Container */}
+                          <div className="flex items-end justify-center gap-1 h-32 sm:h-36 mb-2 relative">
+                            {/* Earnings Bar */}
+                            <div
+                              className={`w-3 sm:w-4 transition-all duration-200 rounded-t ${
+                                selectedWeek === index + 1 ? 'bg-blue-600' : 'bg-blue-500'
+                              } ${selectedWeek === index + 1 ? 'shadow-lg' : ''}`}
+                              style={{ 
+                                height: weeklyEarnings[index] > 0 ? `${Math.max((weeklyEarnings[index] / maxWeeklyAmount) * 120, 4)}px` : '0px'
+                              }}
+                            ></div>
+                            {/* Expenses Bar */}
+                            <div
+                              className={`w-3 sm:w-4 transition-all duration-200 rounded-t ${
+                                selectedWeek === index + 1 ? 'bg-purple-600' : 'bg-purple-500'
+                              } ${selectedWeek === index + 1 ? 'shadow-lg' : ''}`}
+                              style={{ 
+                                height: weeklyExpenses[index] > 0 ? `${Math.max((weeklyExpenses[index] / maxWeeklyAmount) * 120, 4)}px` : '0px'
+                              }}
+                            ></div>
+                            
+                            {/* Tooltip */}
+                            <div className={`absolute -top-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${isDarkMode ? 'bg-gray-900' : 'bg-black'} text-white text-xs rounded-lg p-2 pointer-events-none z-10 whitespace-nowrap`}>
+                              <div className="font-medium">{week}</div>
+                              <div>Earnings: €{weeklyEarnings[index].toFixed(2)}</div>
+                              <div>Expenses: €{weeklyExpenses[index].toFixed(2)}</div>
+                            </div>
+                          </div>
+                          
+                          {/* Week Label */}
+                          <div className={`text-xs text-center ${selectedWeek === index + 1 ? 'font-medium text-blue-500' : isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            W{index + 1}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Daily Report */}
-            <div>
-              <h3 className={`text-sm font-medium mb-2 ${isDarkMode ? 'text-[#A3BFFA]' : 'text-gray-600'}`}>
-                Daily Earnings vs Expenses (Week {selectedWeek}, {monthOptions[selectedMonth - 1].label} {selectedYear})
-              </h3>
-              <div className={`h-48 p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'} relative`}>
-                <div className="flex justify-center space-x-4 mb-2">
+            <div className="order-2">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3">
+                <h3 className={`text-sm sm:text-base font-medium mb-2 sm:mb-0 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  Daily Breakdown
+                </h3>
+                <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                  Week {selectedWeek}, {monthOptions[selectedMonth - 1].label} {selectedYear}
+                </div>
+              </div>
+              
+              <div className={`rounded-lg border ${isDarkMode ? 'bg-gray-700/50 border-gray-600' : 'bg-gray-50 border-gray-200'} p-3 sm:p-4`}>
+                {/* Legend */}
+                <div className="flex justify-center gap-4 sm:gap-6 mb-4">
                   <div className="flex items-center">
-                    <div className="w-4 h-4 bg-[#3182CE] mr-1"></div>
-                    <span className="text-xs">Earnings</span>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-blue-500 rounded mr-2"></div>
+                    <span className="text-xs sm:text-sm">Earnings</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-4 h-4 bg-purple-500 mr-1"></div>
-                    <span className="text-xs">Expenses</span>
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 bg-purple-500 rounded mr-2"></div>
+                    <span className="text-xs sm:text-sm">Expenses</span>
                   </div>
                 </div>
-                {dailyEarnings.every(amount => amount === 0) && dailyExpenses.every(amount => amount === 0) ? (
-                  <div className="text-center text-[#A3BFFA] py-10">
-                    No data for Week {selectedWeek}, {monthOptions[selectedMonth - 1].label} {selectedYear}
-                  </div>
-                ) : (
-                  <div className="flex h-32 items-end justify-around space-x-2">
-                    {dateLabels.map((dateInfo, index) => {
-                      if (!dateInfo) return null;
-                      return (
-                        <div key={index} className="flex flex-row items-end justify-center gap-1 flex-1 relative group">
-                          <div
-                            className="w-4 bg-[#3182CE] rounded-t"
-                            style={{ 
-                              height: dailyEarnings[index] > 0 ? `${(dailyEarnings[index] / maxDailyAmount) * 100}px` : '0px'
-                            }}
-                          ></div>
-                          <div
-                            className="w-4 bg-purple-500 rounded-t"
-                            style={{ 
-                              height: dailyExpenses[index] > 0 ? `${(dailyExpenses[index] / maxDailyAmount) * 100}px` : '0px'
-                            }}
-                          ></div>
-                          <div className="absolute bottom-0 text-center w-full mt-2">
-                            <span className="text-xs">{dateInfo.date}</span>
+
+                {/* Chart Container */}
+                <div className="h-40 sm:h-48 relative">
+                  {dailyEarnings.every(amount => amount === 0) && dailyExpenses.every(amount => amount === 0) ? (
+                    <div className={`flex flex-col items-center justify-center h-full ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <div className="text-2xl sm:text-3xl mb-2">📈</div>
+                      <div className="text-xs sm:text-sm text-center">
+                        No data for Week {selectedWeek}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex h-full items-end justify-around px-1">
+                      {dateLabels.map((dateInfo, index) => {
+                        if (!dateInfo) return <div key={index} className="flex-1"></div>;
+                        return (
+                          <div key={index} className="flex flex-col items-center flex-1 max-w-12 group">
+                            {/* Bars Container */}
+                            <div className="flex items-end justify-center gap-1 h-32 sm:h-36 mb-2 relative">
+                              {/* Earnings Bar */}
+                              <div
+                                className="w-2 sm:w-3 bg-blue-500 rounded-t"
+                                style={{ 
+                                  height: dailyEarnings[index] > 0 ? `${Math.max((dailyEarnings[index] / maxDailyAmount) * 120, 2)}px` : '0px'
+                                }}
+                              ></div>
+                              {/* Expenses Bar */}
+                              <div
+                                className="w-2 sm:w-3 bg-purple-500 rounded-t"
+                                style={{ 
+                                  height: dailyExpenses[index] > 0 ? `${Math.max((dailyExpenses[index] / maxDailyAmount) * 120, 2)}px` : '0px'
+                                }}
+                              ></div>
+                              
+                              {/* Tooltip */}
+                              <div className={`absolute -top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${isDarkMode ? 'bg-gray-900' : 'bg-black'} text-white text-xs rounded-lg p-2 pointer-events-none z-10 whitespace-nowrap`}>
+                                <div className="font-medium">{dateInfo.day}, {dateInfo.date}</div>
+                                <div>Earnings: €{dailyEarnings[index].toFixed(2)}</div>
+                                <div>Expenses: €{dailyExpenses[index].toFixed(2)}</div>
+                              </div>
+                            </div>
+                            
+                            {/* Date Label */}
+                            <div className={`text-xs text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {dateInfo.date}
+                            </div>
                           </div>
-                          <div className="absolute opacity-0 group-hover:opacity-100 bg-black text-white text-xs rounded p-1 -top-8 z-10">
-                            <div>{dateInfo.day}, {dateInfo.date}</div>
-                            Earnings: €{dailyEarnings[index].toFixed(2)}<br />
-                            Expenses: €{dailyExpenses[index].toFixed(2)}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
+          
         </div>
       )}
     </div>

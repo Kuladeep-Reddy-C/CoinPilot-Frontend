@@ -15,6 +15,10 @@ const RecentExpenses = ({ refreshFlag }) => {
     ? 'bg-gray-800 border-gray-700' 
     : 'bg-white border-gray-200';
 
+  const itemCardClasses = isDarkMode
+    ? 'bg-gray-700 border-gray-600'
+    : 'bg-gray-50 border-gray-200';
+
   // Fetch expenses on mount and when refreshFlag changes
   useEffect(() => {
     const fetchExpenses = async () => {
@@ -56,112 +60,148 @@ const RecentExpenses = ({ refreshFlag }) => {
   });
 
   // Map categories to badge styles
-    const getCategoryStyle = (category) => {
+  const getCategoryStyle = (category) => {
     switch (category) {
-        case 'Food':
+      case 'Food':
         return {
-            bgColor: isDarkMode ? 'bg-orange-900' : 'bg-orange-100',
-            textColor: isDarkMode ? 'text-orange-300' : 'text-orange-500',
+          bgColor: isDarkMode ? 'bg-orange-900' : 'bg-orange-100',
+          textColor: isDarkMode ? 'text-orange-300' : 'text-orange-500',
         };
-        case 'Transportation':
+      case 'Transportation':
         return {
-            bgColor: isDarkMode ? 'bg-blue-900' : 'bg-blue-100',
-            textColor: isDarkMode ? 'text-blue-300' : 'text-blue-500',
+          bgColor: isDarkMode ? 'bg-blue-900' : 'bg-blue-100',
+          textColor: isDarkMode ? 'text-blue-300' : 'text-blue-500',
         };
-        case 'Healthcare':
+      case 'Healthcare':
         return {
-            bgColor: isDarkMode ? 'bg-teal-900' : 'bg-teal-100',
-            textColor: isDarkMode ? 'text-teal-300' : 'text-teal-500',
+          bgColor: isDarkMode ? 'bg-teal-900' : 'bg-teal-100',
+          textColor: isDarkMode ? 'text-teal-300' : 'text-teal-500',
         };
-        case 'Entertainment':
+      case 'Entertainment':
         return {
-            bgColor: isDarkMode ? 'bg-purple-900' : 'bg-purple-100',
-            textColor: isDarkMode ? 'text-purple-300' : 'text-purple-500',
+          bgColor: isDarkMode ? 'bg-purple-900' : 'bg-purple-100',
+          textColor: isDarkMode ? 'text-purple-300' : 'text-purple-500',
         };
-        case 'Education':
+      case 'Education':
         return {
-            bgColor: isDarkMode ? 'bg-indigo-900' : 'bg-indigo-100',
-            textColor: isDarkMode ? 'text-indigo-300' : 'text-indigo-500',
+          bgColor: isDarkMode ? 'bg-indigo-900' : 'bg-indigo-100',
+          textColor: isDarkMode ? 'text-indigo-300' : 'text-indigo-500',
         };
-        case 'Groceries':
+      case 'Groceries':
         return {
-            bgColor: isDarkMode ? 'bg-red-900' : 'bg-red-100',
-            textColor: isDarkMode ? 'text-red-300' : 'text-red-500',
+          bgColor: isDarkMode ? 'bg-red-900' : 'bg-red-100',
+          textColor: isDarkMode ? 'text-red-300' : 'text-red-500',
         };
-        case 'Insurance':
+      case 'Insurance':
         return {
-            bgColor: isDarkMode ? 'bg-cyan-900' : 'bg-cyan-100',
-            textColor: isDarkMode ? 'text-cyan-300' : 'text-cyan-500',
+          bgColor: isDarkMode ? 'bg-cyan-900' : 'bg-cyan-100',
+          textColor: isDarkMode ? 'text-cyan-300' : 'text-cyan-500',
         };
-        case 'Shopping':
+      case 'Shopping':
         return {
-            bgColor: isDarkMode ? 'bg-pink-900' : 'bg-pink-100',
-            textColor: isDarkMode ? 'text-pink-300' : 'text-pink-500',
+          bgColor: isDarkMode ? 'bg-pink-900' : 'bg-pink-100',
+          textColor: isDarkMode ? 'text-pink-300' : 'text-pink-500',
         };
-        case 'Utilities':
+      case 'Utilities':
         return {
-            bgColor: isDarkMode ? 'bg-green-900' : 'bg-green-100',
-            textColor: isDarkMode ? 'text-green-300' : 'text-green-500',
+          bgColor: isDarkMode ? 'bg-green-900' : 'bg-green-100',
+          textColor: isDarkMode ? 'text-green-300' : 'text-green-500',
         };
-        case 'Taxes':
+      case 'Taxes':
         return {
-            bgColor: isDarkMode ? 'bg-amber-900' : 'bg-amber-100',
-            textColor: isDarkMode ? 'text-amber-300' : 'text-amber-500',
+          bgColor: isDarkMode ? 'bg-amber-900' : 'bg-amber-100',
+          textColor: isDarkMode ? 'text-amber-300' : 'text-amber-500',
         };
-        case 'Miscellaneous':
+      case 'Miscellaneous':
         return {
-            bgColor: isDarkMode ? 'bg-gray-700' : 'bg-gray-100',
-            textColor: isDarkMode ? 'text-gray-300' : 'text-gray-500',
+          bgColor: isDarkMode ? 'bg-gray-700' : 'bg-gray-100',
+          textColor: isDarkMode ? 'text-gray-300' : 'text-gray-500',
         };
-        default:
+      default:
         return {
-            bgColor: isDarkMode ? 'bg-gray-700' : 'bg-gray-100',
-            textColor: isDarkMode ? 'text-gray-300' : 'text-gray-500',
+          bgColor: isDarkMode ? 'bg-gray-700' : 'bg-gray-100',
+          textColor: isDarkMode ? 'text-gray-300' : 'text-gray-500',
         };
     }
-    };
+  };
 
   return (
     <div className={`p-4 rounded-lg border ${cardClasses}`}>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-medium">Recent Expenses</h2>
       </div>
+      
       {loading ? (
-        <div className="text-center text-[#A3BFFA] py-4 animate-pulse">Loading...</div>
+        <div className="text-center text-blue-400 py-4 animate-pulse">Loading...</div>
       ) : error ? (
-        <div className="text-center text-[#E53E3E] py-4">{error}</div>
+        <div className="text-center text-red-500 py-4">{error}</div>
       ) : displayedExpenses.length === 0 ? (
-        <div className="text-center text-[#A3BFFA] py-4">No expenses found.</div>
+        <div className="text-center text-blue-400 py-4">No expenses found.</div>
       ) : (
-        <table className="w-full">
-          <thead>
-            <tr className={`text-left ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              <th className="pb-2">Subject</th>
-              <th className="pb-2">Category</th>
-              <th className="pb-2">Payment Method</th>
-              <th className="pb-2 text-right">Amount</th>
-            </tr>
-          </thead>
-          <tbody className="text-sm">
+        <>
+          {/* Desktop Table View - Hidden on mobile */}
+          <div className="hidden md:block">
+            <table className="w-full">
+              <thead>
+                <tr className={`text-left ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  <th className="pb-2">Subject</th>
+                  <th className="pb-2">Category</th>
+                  <th className="pb-2">Payment Method</th>
+                  <th className="pb-2 text-right">Amount</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm">
+                {newData.map((expense) => {
+                  const { bgColor, textColor } = getCategoryStyle(expense.category);
+                  return (
+                    <tr key={expense._id}>
+                      <td className="py-2">{expense.description}</td>
+                      <td className="py-2">
+                        <span className={`px-2 py-1 rounded text-xs ${bgColor} ${textColor}`}>
+                          {expense.category}
+                        </span>
+                      </td>
+                      <td className="py-2">{expense.paymentMethod}</td>
+                      <td className="py-2 text-right text-red-500 font-semibold">
+                        {formatAmount(expense.amount)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View - Shown only on mobile */}
+          <div className="md:hidden space-y-3">
             {newData.map((expense) => {
               const { bgColor, textColor } = getCategoryStyle(expense.category);
               return (
-                <tr key={expense._id}>
-                  <td className="py-2">{expense.description}</td>
-                  <td className="py-2">
+                <div key={expense._id} className={`p-3 rounded-lg border ${itemCardClasses}`}>
+                  {/* Top row: Subject and Amount */}
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1 pr-2">
+                      <h3 className="font-medium text-sm truncate">{expense.description}</h3>
+                    </div>
+                    <div className="text-red-500 font-semibold text-sm">
+                      {formatAmount(expense.amount)}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom row: Category and Payment Method */}
+                  <div className="flex justify-between items-center">
                     <span className={`px-2 py-1 rounded text-xs ${bgColor} ${textColor}`}>
                       {expense.category}
                     </span>
-                  </td>
-                  <td className="py-2">{expense.paymentMethod}</td>
-                  <td className="py-2 text-right text-[#E53E3E] font-semibold">
-                    {formatAmount(expense.amount)}
-                  </td>
-                </tr>
+                    <span className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      {expense.paymentMethod}
+                    </span>
+                  </div>
+                </div>
               );
             })}
-          </tbody>
-        </table>
+          </div>
+        </>
       )}
     </div>
   );
