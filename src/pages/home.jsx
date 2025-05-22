@@ -6,7 +6,6 @@ import { useAuth } from '@clerk/clerk-react';
 import RecentEarnings from '../components/RecentEarnings';
 import RecentExpenses from '../components/RecentExpense';
 import ChartsComponentBar from '../components/ChartsComponent';
-import PieChartsComponent from '../components/pieChartComponent';
 import DownloadPDFButton from '../components/DownlaodPDFButton';
 
 export default function ExpenseTracker() {
