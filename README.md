@@ -120,6 +120,8 @@ Have questions or feedback? Use the **Support** page inside the app to send a me
 ![image](https://github.com/user-attachments/assets/8a619412-06f8-491c-95fe-437392a8ad85)
 ![image](https://github.com/user-attachments/assets/bdbe8d6b-7034-4d94-9a0e-402675c42493)
 ![image](https://github.com/user-attachments/assets/26a1801b-90ac-441c-b499-c0cf4163d279)
+![image](https://github.com/user-attachments/assets/d6d8a7a8-2be0-4329-bb2a-0ea410f54154)
+
 
 
 
