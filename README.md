@@ -112,6 +112,17 @@ Have questions or feedback? Use the **Support** page inside the app to send a me
 
 ---
 
+## 🔥View Before You Try
+
+![image](https://github.com/user-attachments/assets/84a06ca2-4aaf-424b-a14c-1332a4e147eb)
+![image](https://github.com/user-attachments/assets/17c15452-d32b-4f13-bb82-4f0e1807a38a)
+![image](https://github.com/user-attachments/assets/c254bb87-45ca-4086-a18a-4105337e0fa8)
+![image](https://github.com/user-attachments/assets/8a619412-06f8-491c-95fe-437392a8ad85)
+![image](https://github.com/user-attachments/assets/bdbe8d6b-7034-4d94-9a0e-402675c42493)
+![image](https://github.com/user-attachments/assets/26a1801b-90ac-441c-b499-c0cf4163d279)
+
+
+
 ## 🙌 Contributing
 
 Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
