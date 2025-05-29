@@ -344,8 +344,8 @@ const ChartsComponentBar = ({refreshFlag}) => {
                             {/* Tooltip */}
                             <div className={`absolute -top-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${isDarkMode ? 'bg-gray-900' : 'bg-black'} text-white text-xs rounded-lg p-2 pointer-events-none z-10 whitespace-nowrap`}>
                               <div className="font-medium">{week}</div>
-                              <div>Earnings: €{weeklyEarnings[index].toFixed(2)}</div>
-                              <div>Expenses: €{weeklyExpenses[index].toFixed(2)}</div>
+                              <div>Earnings: ₹{weeklyEarnings[index].toFixed(2)}</div>
+                              <div>Expenses: ₹{weeklyExpenses[index].toFixed(2)}</div>
                             </div>
                           </div>
                           
@@ -420,8 +420,8 @@ const ChartsComponentBar = ({refreshFlag}) => {
                               {/* Tooltip */}
                               <div className={`absolute -top-20 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${isDarkMode ? 'bg-gray-900' : 'bg-black'} text-white text-xs rounded-lg p-2 pointer-events-none z-10 whitespace-nowrap`}>
                                 <div className="font-medium">{dateInfo.day}, {dateInfo.date}</div>
-                                <div>Earnings: €{dailyEarnings[index].toFixed(2)}</div>
-                                <div>Expenses: €{dailyExpenses[index].toFixed(2)}</div>
+                                <div>Earnings: ₹{dailyEarnings[index].toFixed(2)}</div>
+                                <div>Expenses: ₹{dailyExpenses[index].toFixed(2)}</div>
                               </div>
                             </div>
                             

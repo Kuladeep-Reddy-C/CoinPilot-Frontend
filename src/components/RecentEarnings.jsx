@@ -48,7 +48,7 @@ const RecentEarnings = ({ refreshFlag }) => {
   }, [getToken, refreshFlag]);
 
   // Format amount with Euro symbol
-  const formatAmount = (amount) => `€${amount.toFixed(2)}`;
+  const formatAmount = (amount) => `₹${amount.toFixed(2)}`;
 
   // Take the first 4 earnings
   const displayedEarnings = earnings.length > 4 ? earnings.slice(0, 4) : earnings;

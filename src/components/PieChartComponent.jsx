@@ -243,13 +243,13 @@ const PieChartsComponent = () => {
                         <div className={`p-3 sm:p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
                             <h4 className="text-sm sm:text-lg font-medium">Total Expenses</h4>
                             <p className="text-lg sm:text-2xl font-bold text-red-500 break-all">
-                                ${expenses.reduce((sum, exp) => sum + exp.amount, 0).toLocaleString()}
+                                ₹{expenses.reduce((sum, exp) => sum + exp.amount, 0).toLocaleString()}
                             </p>
                         </div>
                         <div className={`p-3 sm:p-4 rounded-md text-center ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
                             <h4 className="text-sm sm:text-lg font-medium">Total Earnings</h4>
                             <p className="text-lg sm:text-2xl font-bold text-green-500 break-all">
-                                ${earnings.reduce((sum, earn) => sum + earn.amount, 0).toLocaleString()}
+                                ₹{earnings.reduce((sum, earn) => sum + earn.amount, 0).toLocaleString()}
                             </p>
                         </div>
                         <div className={`p-3 sm:p-4 rounded-md text-center sm:col-span-2 lg:col-span-1 ${isDarkMode ? 'bg-gray-700' : 'bg-teal-50'}`}>
@@ -259,7 +259,7 @@ const PieChartsComponent = () => {
                                 expenses.reduce((sum, exp) => sum + exp.amount, 0) >= 0 
                                     ? 'text-green-500' : 'text-red-500'
                             }`}>
-                                ${(
+                                ₹{(
                                     earnings.reduce((sum, earn) => sum + earn.amount, 0) - 
                                     expenses.reduce((sum, exp) => sum + exp.amount, 0)
                                 ).toLocaleString()}
@@ -326,7 +326,7 @@ const PieChartsComponent = () => {
                                             .map((item, i) => (
                                                 <div key={i} className="flex justify-between items-center mb-1 py-1">
                                                     <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
-                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
+                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">₹{item.amount}</span>
                                                 </div>
                                             ))
                                         :
@@ -338,7 +338,7 @@ const PieChartsComponent = () => {
                                             .map((item, i) => (
                                                 <div key={i} className="flex justify-between items-center mb-1 py-1">
                                                     <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
-                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
+                                                    <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">₹{item.amount}</span>
                                                 </div>
                                             ))
                                     }
@@ -369,7 +369,7 @@ const PieChartsComponent = () => {
                                         .map((item, i) => (
                                             <div key={i} className="flex justify-between items-center mb-1 py-1">
                                                 <span className="text-xs sm:text-sm truncate pr-2 flex-1">{item.name}</span>
-                                                <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">${item.amount}</span>
+                                                <span className="font-semibold text-xs sm:text-sm whitespace-nowrap">₹{item.amount}</span>
                                             </div>
                                         ))
                                     }

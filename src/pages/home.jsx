@@ -266,7 +266,7 @@ export default function ExpenseTracker() {
               {/* Amount */}
               <div>
                 <label htmlFor="amount" className="block text-sm font-medium mb-1">
-                  Amount (€)
+                  Amount (₹)
                 </label>
                 <input
                   type="number"

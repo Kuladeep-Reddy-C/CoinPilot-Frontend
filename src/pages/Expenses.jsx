@@ -223,7 +223,7 @@ const Expenses = () => {
     return new Date(dateString).toISOString().split('T')[0];
   };
 
-  const formatAmount = (amount) => `€${amount.toFixed(2)}`;
+  const formatAmount = (amount) => `₹${amount.toFixed(2)}`;
 
   const categories = ['All', ...new Set(expenses.map((expense) => expense.category))];
 
@@ -449,7 +449,7 @@ const Expenses = () => {
               </div>
               <div>
                 <label htmlFor="amount" className="block text-sm font-medium mb-1">
-                  Amount (€)
+                  Amount (₹)
                 </label>
                 <input
                   type="number"

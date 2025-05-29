@@ -21,7 +21,7 @@ const SettingsPage = () => {
       <Navbar activePage="Settings" />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
+      {/* <div className="flex-1 overflow-auto p-6"> */}
         <div className={`p-4 rounded-lg border ${cardClasses}`}>
           <h2 className="text-lg font-medium mb-4">Profile Settings</h2>
           <div className={`p-4 rounded ${isDarkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
@@ -30,7 +30,7 @@ const SettingsPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

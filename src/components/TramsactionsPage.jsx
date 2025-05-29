@@ -115,7 +115,7 @@ const TransactionsPage = () => {
 
   // Format amount with Euro symbol
   const formatAmount = (amount, type) => {
-    const formatted = `€${amount.toFixed(2)}`;
+    const formatted = `₹${amount.toFixed(2)}`;
     return type === 'Earning' ? `+${formatted}` : `-${formatted}`;
   };
 

@@ -51,7 +51,7 @@ const RecentExpenses = ({ refreshFlag }) => {
   }, [getToken, refreshFlag, url]);
 
   // Format amount with Euro symbol
-  const formatAmount = (amount) => `€${amount.toFixed(2)}`;
+  const formatAmount = (amount) => `₹${amount.toFixed(2)}`;
 
   // Take the first 4 expenses
   const displayedExpenses = expenses.length > 4 ? expenses.slice(0, 4) : expenses;
