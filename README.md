@@ -1,6 +1,6 @@
-markdown
-Copy code
 # 💸 CoinPilot – Finance Tracker App (Frontend)
+
+🌐 **Live Demo**: [https://coinpilot-frontend.onrender.com](https://coinpilot-frontend.onrender.com)
 
 Welcome to **CoinPilot** – your personal finance tracker app, designed to help you stay in control of your earnings and expenses! This is the **frontend repository** for the application, built with modern web technologies and packed with features to visualize and manage your finances with ease. 📊📱
 
@@ -118,4 +118,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-Made with 💙 by [Your Name] 
+Made with 💙 by Kuladeep Reddy C
